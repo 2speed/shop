@@ -66,6 +66,7 @@ $ ./gradlew run
 Unless the default requests defined in `shop-client/resources/requests.json` has been modfied, output exactly like the following will be displayed:
 [source,text]
 ----
+RECEIPT
 Date: 06/11/2020
 Time: 16:28:44
 ---------------------------------------------------------------------
