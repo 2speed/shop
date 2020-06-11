@@ -6,7 +6,10 @@ Matt Nicholls <matthew.nicholls@capitalone.com>
 :iconfont-cdn: //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 :sectanchors: true
 :source-highlighter: prettify
-:experimental:
+:toc:
+:toclevels: 3
+:toc-title: Contents
+
 
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -23,7 +26,7 @@ Simple client and server applications for simulating a shopping cart. The server
 === Prerequisites
 
 - The link:https://git-scm.com/[Git] version management tool
-- The link:https://jdk.java.net/11/[Java Development Kit (JDK)], version 14 or later
+- The link:https://jdk.java.net/11/[Java Development Kit (JDK)], version 11 or later
 
 === Server
 
