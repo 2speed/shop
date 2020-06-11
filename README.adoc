@@ -1,0 +1,76 @@
+= Shop
+Matt Nicholls <matthew.nicholls@capitalone.com>
+:experimental: true
+:keywords: Java, Micronaut
+:icons: font
+:iconfont-cdn: //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+:sectanchors: true
+:source-highlighter: prettify
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+Simple client and server applications for simulating a shopping cart. The server is built using link:https://micronaut.io/[Micronaut]. The client uses the new link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
+
+== Build and Execution
+
+=== Prerequisites
+
+- The link:https://git-scm.com/[Git] version management tool
+- The link:https://jdk.java.net/11/[Java Development Kit (JDK)], version 14 or later
+
+=== Server
+
+Fetch the source:
+....
+$ git clone https://github.com/2speed/shop.git
+....
+
+Navigate to the `shop-server` directory and use the Gradle `run` task to start the server:
+....
+$ ./gradlew run
+....
+
+Output similar to the following should be displayed:
+[source,bash]
+----
+> Task :run
+12:42:01.779 [main] INFO  io.micronaut.runtime.Micronaut - Startup completed in 846ms. Server Running: http://localhost:8080
+<==========---> 80% EXECUTING [4s]
+> :run
+----
+
+TIP: Keyboard shortcut kbd:[Ctrl + C] can be used to stop the server.
+
+=== Client
+
+Fetch the source:
+....
+$ git clone https://github.com/2speed/shop.git
+....
+
+With the server still running, navigate to the `shop-client` directory and use the Gradle `run` task to execute the client:
+....
+$ ./gradlew run
+....
+
+Unless the default requests defined in `shop-client/resources/requests.json` has been modfied, output exactly like the following will be displayed:
+[source,text]
+----
+Date: 06/11/2020
+Time: 16:28:44
+---------------------------------------------------------------------
+Name      Quantity   Total Price
+coconut   10000      $7,500.00
+orange    12         $5.40
+banana    35         $39.38
+---------------------------------------------------------------------
+          Total:     $7,544.78
+
+----

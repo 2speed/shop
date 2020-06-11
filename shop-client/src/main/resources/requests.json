@@ -1,0 +1,29 @@
+[{
+    "method": "Put",
+    "endpoint": "http://localhost:8080/cart",
+    "payload": { "name": "apple", "quantity": 10, "pricePerItem": "1.00" }
+  },{
+    "method": "Put",
+    "endpoint": "http://localhost:8080/cart",
+    "payload": { "name": "orange", "quantity": 28, "pricePerItem": "0.50" }
+  },{
+    "method": "Put",
+    "endpoint": "http://localhost:8080/cart",
+    "payload": { "name": "coconut", "quantity": 10000, "pricePerItem": "1.00" }
+  },{
+    "method": "Post",
+    "endpoint": "http://localhost:8080/cart/orange",
+    "payload": { "quantity": 12 }
+  },{
+    "method": "Put",
+    "endpoint": "http://localhost:8080/cart",
+    "payload": { "name": "banana", "quantity": 35, "pricePerItem": "1.25" }
+  },{
+    "method": "Delete",
+    "endpoint": "http://localhost:8080/cart/apple",
+    "payload": {}
+  },{
+    "method": "Get",
+    "endpoint": "http://localhost:8080/cart/coconut",
+    "payload": {}
+}]

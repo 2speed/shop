@@ -1,0 +1,17 @@
+---
+micronaut:
+  application:
+    name: shop-server
+
+---
+redis:
+  uri: redis://localhost
+
+---
+jackson:
+  serialization:
+    indentOutput: true
+    writeDatesAsTimestamps: false
+  deserialization:
+    useBigIntegerForInts: true
+    failOnUnknownProperties: false

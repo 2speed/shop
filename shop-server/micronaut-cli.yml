@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: shop.server
+---
+testFramework: junit
+sourceLanguage: java
