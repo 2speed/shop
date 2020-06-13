@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -24,13 +22,16 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class CartItem {
     @NotBlank
+    @Size(max=256)
     private String  name;
 
     @NotNull
     @Positive
+    @DecimalMax(value = "9999999999.999")
     private BigDecimal pricePerItem;
 
     @NotNull
     @Positive
+    @DecimalMax(value = "9999999999")
     private BigInteger quantity;
 }
