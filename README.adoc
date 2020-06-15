@@ -1,7 +1,7 @@
 = Shop
-Matt Nicholls <matthew.nicholls@capitalone.com>
+Matt Nicholls <transientvariable@gmail.com>
 :experimental: true
-:keywords: Java, Micronaut
+:keywords: Java,Micronaut
 :icons: font
 :iconfont-cdn: //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 :sectanchors: true
@@ -28,12 +28,14 @@ Simple client and server applications for simulating a shopping cart. The server
 - The link:https://git-scm.com/[Git] version management tool
 - The link:https://jdk.java.net/11/[Java Development Kit (JDK)], version 11 or later
 
-=== Server
+=== Fetch the Source
 
-Fetch the source:
 ....
 $ git clone https://github.com/2speed/shop.git
+$ cd shop
 ....
+
+=== Server
 
 Navigate to the `shop-server` directory and use the Gradle `run` task to start the server:
 ....
@@ -52,11 +54,6 @@ Output similar to the following should be displayed:
 TIP: Keyboard shortcut kbd:[Ctrl + C] can be used to stop the server.
 
 === Client
-
-Fetch the source:
-....
-$ git clone https://github.com/2speed/shop.git
-....
 
 With the server still running, navigate to the `shop-client` directory and use the Gradle `run` task to execute the client:
 ....

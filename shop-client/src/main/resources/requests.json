@@ -11,9 +11,21 @@
     "endpoint": "http://localhost:8080/cart",
     "payload": { "name": "coconut", "quantity": 10000, "pricePerItem": "1.00" }
   },{
+    "method": "Delete",
+    "endpoint": "http://localhost:8080/cart/kumquat",
+    "payload": {}
+  },{
     "method": "Post",
     "endpoint": "http://localhost:8080/cart/orange",
     "payload": { "quantity": 12 }
+  },{
+    "method": "Post",
+    "endpoint": "http://localhost:8080/cart/coconut",
+    "payload": { "qty": 12 }
+  },{
+    "method": "Put",
+    "endpoint": "http://localhost:8080/cart",
+    "payload": { "name": "banana", "quantity": 35, "pricePerItem": "1.25" }
   },{
     "method": "Put",
     "endpoint": "http://localhost:8080/cart",
