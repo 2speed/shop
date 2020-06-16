@@ -60,6 +60,9 @@ dependencies {
     implementation("io.micronaut:micronaut-session")
     implementation("io.micronaut.configuration:micronaut-redis-lettuce")
     implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut.configuration:micronaut-micrometer-core")
+    implementation("io.micronaut.configuration:micronaut-micrometer-registry-statsd")
+    implementation("io.micronaut:micronaut-management")
     implementation("javax.annotation:javax.annotation-api")
 
     runtimeOnly("ch.qos.logback:logback-classic:1.2.3")
@@ -79,9 +82,9 @@ repositories {
 tasks.withType<Jar> {
     manifest {
         attributes(
-                mapOf("Implementation-Title" to project.name,
-                        "Implementation-Vendor" to "Matt Nicholls",
-                        "Implementation-Version" to project.version)
+            mapOf("Implementation-Title" to project.name,
+                  "Implementation-Vendor" to "Matt Nicholls",
+                  "Implementation-Version" to project.version)
         )
     }
 }

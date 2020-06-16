@@ -6,9 +6,6 @@ Matt Nicholls <transientvariable@gmail.com>
 :iconfont-cdn: //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 :sectanchors: true
 :source-highlighter: prettify
-:toc:
-:toclevels: 3
-:toc-title: Contents
 
 
 ifdef::env-github[]
@@ -20,6 +17,8 @@ ifdef::env-github[]
 endif::[]
 
 Simple client and server applications for simulating a shopping cart. The server is built using link:https://micronaut.io/[Micronaut]. The client uses the new link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
+
+NOTE: Orginally, the scaffolding for the server was generated using the link:https://github.com/jhipster/generator-jhipster-micronaut[JHipster generator for Micronaut], but opted for the more lightweight vanilla Micronaut.
 
 == Build and Execution
 
@@ -51,6 +50,43 @@ Output similar to the following should be displayed:
 > :run
 ----
 
+Check that the server is up and running by navigating to the endpoint `localhost:8080/metrics` via web browser or command-line application (e.g. cURL). The example below uses link:https://httpie.org/[HTTPie]:
+
+[source,bash]
+----
+$ http localhost:8080/metrics
+----
+
+which should output the list of metrics than can be queried for the server:
+
+[source,bash]
+----
+{
+  "names": [
+    "executor",
+    "executor.active",
+    "executor.completed",
+    "executor.pool.size",
+    "executor.queue.remaining",
+    "executor.queued",
+    "jvm.buffer.count",
+    "jvm.buffer.memory.used",
+
+    ...
+
+    "process.files.max",
+    "process.files.open",
+    "process.start.time",
+    "process.uptime",
+    "system.cpu.count",
+    "system.cpu.usage",
+    "system.load.average.1m"
+  ]
+}
+----
+
+Individual metrics can be retrieved by appending the name of the metric to the `metrics` endpoint. For example, `localhost:8080/metrics/jvm.buffer.memory.used`.
+
 TIP: Keyboard shortcut kbd:[Ctrl + C] can be used to stop the server.
 
 === Client
@@ -60,7 +96,10 @@ With the server still running, navigate to the `shop-client` directory and use t
 $ ./gradlew run
 ....
 
-Unless the default requests defined in `shop-client/resources/requests.json` has been modfied, output exactly like the following will be displayed:
+NOTE: The requests sent by the `shop-client` are defined in the link:shop-client/src/main/resources/requests.json[] file.
+
+Unless the default requests defined in `src/main/resources/requests.json` has been modfied, output exactly like the following will be displayed:
+
 [source,text]
 ----
 RECEIPT
@@ -75,3 +114,49 @@ banana    35         $39.38
           Total:     $7,544.78
 
 ----
+
+[TIP]
+====
+Metrics for the requests sent to the client can be retrived from the server using the `metrics/http.server.requests` endpoint:
+
+[source,bash]
+----
+$ http localhost:8080/metrics/http.server.requests
+
+HTTP/1.1 200 OK
+Date: Tue, 16 Jun 2020 21:03:34 GMT
+connection: keep-alive
+content-length: 574
+content-type: application/json
+
+{
+  "name" : "http.server.requests",
+  "measurements" : [ {
+    "statistic" : "COUNT",
+    "value" : 12.0
+  }, {
+    "statistic" : "TOTAL_TIME",
+    "value" : 156.19343699999996
+  }, {
+    "statistic" : "MAX",
+    "value" : 0.0
+  } ],
+  "availableTags" : [ {
+    "tag" : "exception",
+    "values" : [ "none" ]
+  }, {
+    "tag" : "method",
+    "values" : [ "DELETE", "POST", "PUT", "GET" ]
+  }, {
+    "tag" : "uri",
+    "values" : [ "/cart/receipt", "/cart", "/metrics/{name}", "/cart/{name}" ]
+  }, {
+    "tag" : "status",
+    "values" : [ "400", "200", "201" ]
+  } ]
+}
+
+----
+====
+
+

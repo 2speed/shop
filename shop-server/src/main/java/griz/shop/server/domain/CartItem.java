@@ -21,17 +21,30 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartItem {
+
+    private static final String ITEM_MAX_QUANTITY_VALUE = "9999999999";
+
+    /**
+     * Defines the name for the quantity field.
+     */
+    public static final String FIELD_NAME_QUANTITY = "quantity";
+
+    /**
+     * Defines the maximum item quantity.
+     */
+    public static final Long ITEM_MAX_QUANTITY = Long.valueOf(ITEM_MAX_QUANTITY_VALUE);
+
     @NotBlank
     @Size(max=256)
     private String  name;
 
     @NotNull
     @Positive
-    @DecimalMax(value = "9999999999.999")
+    @DecimalMax(value = "9999999999.99")
     private BigDecimal pricePerItem;
 
     @NotNull
     @Positive
-    @DecimalMax(value = "9999999999")
+    @DecimalMax(value = ITEM_MAX_QUANTITY_VALUE)
     private BigInteger quantity;
 }

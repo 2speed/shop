@@ -1,4 +1,4 @@
-package griz.shop.server.endpoint.web;
+package griz.shop.server.api;
 
 import griz.shop.server.domain.Cart;
 import griz.shop.server.domain.CartItem;
@@ -21,6 +21,8 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import static griz.shop.server.domain.CartItem.FIELD_NAME_QUANTITY;
+import static griz.shop.server.domain.CartItem.ITEM_MAX_QUANTITY;
 import static io.micronaut.http.HttpResponse.badRequest;
 import static io.micronaut.http.HttpResponse.created;
 import static io.micronaut.http.MediaType.APPLICATION_JSON;
@@ -34,9 +36,8 @@ import static java.lang.String.format;
  * @author nichollsmc
  */
 @Controller("/cart")
-public class CartEndpoint {
+public class CartOperations {
 
-    private static final String FIELD_NAME_QUANTITY     = "quantity";
     private static final String SESSSION_ATTRIBUTE_CART = "shop.cart";
 
     @Inject
@@ -68,20 +69,20 @@ public class CartEndpoint {
                                    final Session session,
                                    @Body @Valid final CartItem cartItem) {
         return handleRequestForCartItem((cart, existingCartItem) -> {
-                if (existingCartItem.isPresent()) {
-                    var errorResponse =
+            if (existingCartItem.isPresent()) {
+                var errorResponse =
                         new JsonError(format("Item '%s' already exists in cart.", cartItem.getName()))
-                            .link(Link.SELF, Link.of(httpRequest.getUri()));
+                                .link(Link.SELF, Link.of(httpRequest.getUri()));
 
-                    return badRequest(errorResponse);
-                }
+                return badRequest(errorResponse);
+            }
 
-                cart.getItems().add(cartItem);
-                session.put(SESSSION_ATTRIBUTE_CART, cart);
+            cart.getItems().add(cartItem);
+            session.put(SESSSION_ATTRIBUTE_CART, cart);
 
-                return created(cart);
-            })
-            .apply(session, cartItem.getName());
+            return created(cart);
+        })
+        .apply(session, cartItem.getName());
     }
 
     /**
@@ -94,10 +95,10 @@ public class CartEndpoint {
     @Get(value = "{name}", produces = APPLICATION_JSON)
     public HttpResponse<?> getItem(final Session session, @NotBlank final String name) {
         return handleRequestForCartItem((cart, existingCartItem) ->
-                    existingCartItem
-                        .map(HttpResponse::ok)
-                        .orElseGet(HttpResponse::notFound))
-                .apply(session, name);
+            existingCartItem
+                .map(HttpResponse::ok)
+                .orElseGet(HttpResponse::notFound))
+        .apply(session, name);
     }
 
     /**
@@ -113,9 +114,11 @@ public class CartEndpoint {
                                               @NotBlank final String name,
                                               @Body final Map<String, Long> quantity) {
         return handleRequestForCartItem((cart, existingCartItem) -> {
-                existingCartItem.ifPresent(eci ->
+            existingCartItem.ifPresent(eci ->
                     Optional.ofNullable(quantity)
-                        .flatMap(qmap -> Optional.ofNullable(qmap.get(FIELD_NAME_QUANTITY)).filter(q -> q >= 0))
+                        .flatMap(qmap ->
+                            Optional.ofNullable(qmap.get(FIELD_NAME_QUANTITY))
+                                    .filter(q -> q >= 0 && q <= ITEM_MAX_QUANTITY))
                         .ifPresent(q -> {
                             if (q == 0) {
                                 removeItem(session, name);
@@ -126,9 +129,9 @@ public class CartEndpoint {
                             session.put(SESSSION_ATTRIBUTE_CART, cart);
                         }));
 
-                return created(cart);
-            })
-            .apply(session, name);
+            return created(cart);
+        })
+        .apply(session, name);
     }
 
     /**
@@ -141,13 +144,13 @@ public class CartEndpoint {
     @Delete(value = "{name}", produces = APPLICATION_JSON)
     public HttpResponse<?> removeItem(final Session session, @NotBlank final String name) {
         return handleRequestForCartItem((cart, existingCartItem) -> {
-                existingCartItem
-                    .flatMap(eci -> cart.removeItemByName(name))
-                    .ifPresent(eci ->  session.put(SESSSION_ATTRIBUTE_CART, cart));
+            existingCartItem
+                .flatMap(eci -> cart.removeItemByName(name))
+                .ifPresent(eci ->  session.put(SESSSION_ATTRIBUTE_CART, cart));
 
-                return created(cart);
-            })
-            .apply(session, name);
+            return created(cart);
+        })
+        .apply(session, name);
     }
 
     /**
@@ -179,15 +182,15 @@ public class CartEndpoint {
     private BiFunction<Session, String, HttpResponse<?>>
         handleRequestForCartItem(final BiFunction<Cart, Optional<CartItem>, MutableHttpResponse<?>> cartHandler) {
             return (session, cartItemName) ->
-                findCart()
-                    .andThen(cart -> cartHandler.apply(cart, cart.findItemByName(cartItemName)))
-                    .apply(session);
+                    findCart()
+                        .andThen(cart -> cartHandler.apply(cart, cart.findItemByName(cartItemName)))
+                        .apply(session);
     }
 
     private Function<Session, Cart> findCart() {
         return session ->
-            Optional.ofNullable(session)
-                .flatMap(s -> s.get(SESSSION_ATTRIBUTE_CART, Cart.class))
-                .orElse(Cart.builder().items(new HashSet<>()).build());
+                Optional.ofNullable(session)
+                    .flatMap(s -> s.get(SESSSION_ATTRIBUTE_CART, Cart.class))
+                    .orElse(Cart.builder().items(new HashSet<>()).build());
     }
 }
