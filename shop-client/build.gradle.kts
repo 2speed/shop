@@ -11,6 +11,7 @@ plugins {
 
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("io.freefair.lombok")              version "5.0.0"
+    id("com.github.spotbugs")             version "4.0.4"
 }
 
 // GAV
@@ -57,6 +58,27 @@ dependencies {
 repositories {
     jcenter()
     mavenCentral()
+}
+
+// Code Quality
+// ========================================
+
+spotbugs {
+    ignoreFailures.set(false)
+
+    tasks.spotbugsMain {
+        reports.create("html") {
+            isEnabled = true
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
+
+    tasks.spotbugsTest {
+        reports.create("html") {
+            isEnabled = true
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
 }
 
 // Tasks

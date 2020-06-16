@@ -39,12 +39,12 @@ public class CheckoutService {
      */
     public Function<Cart, Receipt> checkout() {
         return cart -> {
-            var receiptItems =
+            final var receiptItems =
                 cart.getItems().stream().parallel()
                     .map(toReceiptItem().andThen(applyDiscount()))
                     .collect(toSet());
 
-            var receiptTotal =
+            final var receiptTotal =
                 receiptItems.stream()
                     .map(ReceiptItem::getTotalPrice)
                     .reduce(new BigDecimal(0), BigDecimal::add);
@@ -67,7 +67,7 @@ public class CheckoutService {
 
     private UnaryOperator<ReceiptItem> applyDiscount() {
         return receiptItem -> {
-            var quantity = receiptItem.getQuantity().intValue();
+            final var quantity = receiptItem.getQuantity().intValue();
 
             if (quantity <= 10) {
                 return receiptItem;
@@ -83,7 +83,7 @@ public class CheckoutService {
                 discount = TWENTY_FIVE_PERCENT_DISCOUNT;
             }
 
-            var discountedTotal = receiptItem.getTotalPrice();
+            final var discountedTotal = receiptItem.getTotalPrice();
 
             return ReceiptItem.builder()
                     .name(receiptItem.getName())

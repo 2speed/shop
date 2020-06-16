@@ -10,6 +10,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "5.2.0"
     id("net.ltgt.apt-eclipse")            version "0.21"
     id("io.freefair.lombok")              version "5.0.0"
+    id("com.github.spotbugs")             version "4.0.4"
 }
 
 // GAV
@@ -74,6 +75,29 @@ dependencies {
 repositories {
     jcenter()
     mavenCentral()
+}
+
+// Code Quality
+// ========================================
+
+spotbugs {
+    ignoreFailures.set(true)
+
+    excludeFilter.set(file("spotbugs-filter-exclude.xml"))
+
+    tasks.spotbugsMain {
+        reports.create("html") {
+            isEnabled = true
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
+
+    tasks.spotbugsTest {
+        reports.create("html") {
+            isEnabled = true
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
 }
 
 // Tasks

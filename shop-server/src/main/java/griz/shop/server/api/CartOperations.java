@@ -70,9 +70,9 @@ public class CartOperations {
                                    @Body @Valid final CartItem cartItem) {
         return handleRequestForCartItem((cart, existingCartItem) -> {
             if (existingCartItem.isPresent()) {
-                var errorResponse =
-                        new JsonError(format("Item '%s' already exists in cart.", cartItem.getName()))
-                                .link(Link.SELF, Link.of(httpRequest.getUri()));
+                final var errorResponse =
+                    new JsonError(format("Item '%s' already exists in cart.", cartItem.getName()))
+                        .link(Link.SELF, Link.of(httpRequest.getUri()));
 
                 return badRequest(errorResponse);
             }
@@ -115,19 +115,19 @@ public class CartOperations {
                                               @Body final Map<String, Long> quantity) {
         return handleRequestForCartItem((cart, existingCartItem) -> {
             existingCartItem.ifPresent(eci ->
-                    Optional.ofNullable(quantity)
-                        .flatMap(qmap ->
-                            Optional.ofNullable(qmap.get(FIELD_NAME_QUANTITY))
-                                    .filter(q -> q >= 0 && q <= ITEM_MAX_QUANTITY))
-                        .ifPresent(q -> {
-                            if (q == 0) {
-                                removeItem(session, name);
-                                return;
-                            }
+                Optional.ofNullable(quantity)
+                    .flatMap(qmap ->
+                        Optional.ofNullable(qmap.get(FIELD_NAME_QUANTITY))
+                                .filter(q -> q >= 0 && q <= ITEM_MAX_QUANTITY))
+                    .ifPresent(q -> {
+                        if (q == 0) {
+                            removeItem(session, name);
+                            return;
+                        }
 
-                            eci.setQuantity(BigInteger.valueOf(q));
-                            session.put(SESSSION_ATTRIBUTE_CART, cart);
-                        }));
+                        eci.setQuantity(BigInteger.valueOf(q));
+                        session.put(SESSSION_ATTRIBUTE_CART, cart);
+                    }));
 
             return created(cart);
         })
@@ -182,15 +182,15 @@ public class CartOperations {
     private BiFunction<Session, String, HttpResponse<?>>
         handleRequestForCartItem(final BiFunction<Cart, Optional<CartItem>, MutableHttpResponse<?>> cartHandler) {
             return (session, cartItemName) ->
-                    findCart()
-                        .andThen(cart -> cartHandler.apply(cart, cart.findItemByName(cartItemName)))
-                        .apply(session);
+                findCart()
+                    .andThen(cart -> cartHandler.apply(cart, cart.findItemByName(cartItemName)))
+                    .apply(session);
     }
 
     private Function<Session, Cart> findCart() {
         return session ->
-                Optional.ofNullable(session)
-                    .flatMap(s -> s.get(SESSSION_ATTRIBUTE_CART, Cart.class))
-                    .orElse(Cart.builder().items(new HashSet<>()).build());
+            Optional.ofNullable(session)
+                .flatMap(s -> s.get(SESSSION_ATTRIBUTE_CART, Cart.class))
+                .orElse(Cart.builder().items(new HashSet<>()).build());
     }
 }

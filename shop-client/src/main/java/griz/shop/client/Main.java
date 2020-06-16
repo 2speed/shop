@@ -136,7 +136,7 @@ public class Main {
                 .append("---------------------------------------------------------------------").append("\n")
                 .append(format("%-10s%-11s%-16s", "Name", "Quantity", "Total Price")).append("\n");
 
-            var currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+            final var currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
 
             receipt.getItems().stream()
                 .forEach(item -> {
