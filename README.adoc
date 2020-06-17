@@ -1,7 +1,7 @@
 = Shop
 Matt Nicholls <transientvariable@gmail.com>
 :experimental: true
-:keywords: Java,Reactive,Micronaut,Quarkus,GraalVM,Microservices,Serverless
+:keywords: Java,Reactive,Micronaut,Quarkus,GraalVM,RSocket,Microservices,Serverless
 :icons: font
 :iconfont-cdn: //stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
 :sectanchors: true
@@ -16,9 +16,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Simple client and server applications that simulate a shopping cart for kicking the tires on the-state-of-the-art Java microservice frameworks. The current server implementation is powered by link:https://micronaut.io/[Micronaut]. The client uses the link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
+Simple client and server applications that simulate a shopping cart for kicking the tires on _https://en.wikipedia.org/wiki/State_of_the_art[state-of-the-art]_ Java microservice frameworks. The current server implementation is powered by link:https://micronaut.io/[Micronaut]. The client uses the link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
 
-NOTE: Orginally, the scaffolding for the server was generated using the link:https://github.com/jhipster/generator-jhipster-micronaut[JHipster generator for Micronaut], but opted to take off the training wheels and use vanilla Micronaut.
+NOTE: Orginally, the scaffolding for the server was generated using the link:https://github.com/jhipster/generator-jhipster-micronaut[JHipster generator for Micronaut], but opted to take off the training wheels and use vanilla Micronaut instead.
 
 == Build and Execution
 
