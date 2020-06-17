@@ -179,6 +179,7 @@ content-type: application/json
 ==== Brainstorming/TODOs
 
 * http://rsocket.io/[RSocket] versions of the client and server?  ᕦ(ò_óˇ)ᕤ
+* gRPC variant of the Web API
 * Deployment of server as a serverless application on Cloudflare or AWS
 * Comparing the DevEx of building native binaries of the server between GraalVM and WebAssembly
     ** Possibly a Rust version of the server using Actix compiled to WASM as a control? 🤔
