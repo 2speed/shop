@@ -164,7 +164,7 @@ content-type: application/json
 ==== General
 
 * Initially started out with https://quarkus.io/[Quarkus] for implementing the server, but hit a hard wall when attempting use the HTTP session for state management.
-    ** Quarkus does not provide support for HTTP sessions _out-of-the-box_ and the workarounds are quite hacky at the moment ¯\_(ツ)_/¯
+    ** Quarkus does not provide support for HTTP sessions _out-of-the-box_ and the workarounds are quite hacky at the moment  ¯\_(ツ)_/¯
 
 ==== Developer Experience/Ergonomics
 
@@ -172,13 +172,14 @@ content-type: application/json
     ** Took a while to figure out exactly how to build the damn thing, however as with all things, YMMV
 * Ramp up time to being productive with Micronaut is similar to that of Spring and Quarkus
     ** Even more so when using JHipster; the framework being used is almost transparent
-    ** Using some of the more esoteric features like reactive streams is where things get interesting ಠ‿ಠ
+    ** Using some of the more esoteric features like reactive streams is where things get interesting  ಠ‿ಠ
 * For Spring veterans, transitioning to Micronaut might be a more _familiar_ experience
     ** Quarkus too to a degree, but it is definitely not batteries included like Spring and Micronaut - which is basically the point of a microservice right?
 
 ==== Brainstorming/TODOs
 
+* http://rsocket.io/[RSocket] versions of the client and server?  ᕦ(ò_óˇ)ᕤ
 * Deployment of server as a serverless application on Cloudflare or AWS
 * Comparing the DevEx of building native binaries of the server between GraalVM and WebAssembly
-    ** Possibly a Rust version of the server using Actix compiled to WASM as a control?
+    ** Possibly a Rust version of the server using Actix compiled to WASM as a control? 🤔
 * Performance comparison between a native binary of the server built with GraalVM and WebAssembly
