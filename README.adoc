@@ -16,7 +16,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Simple client and server applications that simulate a shopping cart for kicking the tires on the-state-of-the-art Java microservice frameworks. The server is built using link:https://micronaut.io/[Micronaut]. The client uses the new link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
+Simple client and server applications that simulate a shopping cart for kicking the tires on the-state-of-the-art Java microservice frameworks. The server is built using link:https://micronaut.io/[Micronaut]. The client uses the link:https://openjdk.java.net/groups/net/httpclient/[HTTP Client] library introduced in Java 11.
 
 NOTE: Orginally, the scaffolding for the server was generated using the link:https://github.com/jhipster/generator-jhipster-micronaut[JHipster generator for Micronaut], but opted to take off the training wheels and use vanilla Micronaut.
 
